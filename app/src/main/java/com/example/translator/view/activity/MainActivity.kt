@@ -1,4 +1,4 @@
-package com.example.translator.view
+package com.example.translator.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
