@@ -40,6 +40,28 @@ class TranslationFragment : Fragment(), TextWatcher {
         with(viewModel) {
             error.observe(viewLifecycleOwner) { context?.shortToast(it) }
 
+            languages.observe(viewLifecycleOwner) {
+                when (isAutoDetect(requireContext())) {
+                    true -> {
+                        getString(R.string.autodetect).apply {
+                            input_lang_choose.text = this
+                            input_lang.text = this
+                        }
+                    }
+                    false -> {
+                        it.find { it.id == getDir(requireContext())[0] }?.lang.apply {
+                            input_lang_choose.text = this
+                            input_lang.text = this
+                        }
+                    }
+                }
+
+               it.find { it.id == getDir(requireContext())[1] }?.lang.apply {
+                   result_lang_choose.text = this
+                   result_lang.text = this
+               }
+            }
+
             translationResult.observe(viewLifecycleOwner) {
                 it?.text?.joinToString().apply {
                     result.text = this
