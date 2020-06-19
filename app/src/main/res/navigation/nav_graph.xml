@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/introFragment">
+    app:startDestination="@id/translationFragment">
 
-<!--    <fragment-->
-<!--        android:id="@+id/introFragment"-->
-<!--        android:name="taxi.kassa.view.intro.IntroFragment"-->
-<!--        android:label="IntroFragment"-->
-<!--        tools:layout="@layout/fragment_intro"/>-->
+    <fragment
+        android:id="@+id/translationFragment"
+        android:name="com.example.translator.view.fragment.TranslationFragment"
+        android:label="TranslationFragment"
+        tools:layout="@layout/fragment_translation" />
 
 </navigation>

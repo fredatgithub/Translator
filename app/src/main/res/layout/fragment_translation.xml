@@ -125,13 +125,14 @@
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/primary_translation_holder"
+        android:id="@+id/translation_holder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:layout_weight="30"
         android:visibility="gone"
-        app:contentPadding="8dp">
+        app:contentPadding="8dp"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
