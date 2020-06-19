@@ -124,6 +124,14 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/translation_holder"
         android:layout_width="match_parent"

@@ -7,8 +7,18 @@
 
     <fragment
         android:id="@+id/translationFragment"
-        android:name="com.example.translator.view.fragment.TranslationFragment"
+        android:name="com.example.translator.view.fragment.translation.TranslationFragment"
         android:label="TranslationFragment"
-        tools:layout="@layout/fragment_translation" />
+        tools:layout="@layout/fragment_translation">
+        <action
+            android:id="@+id/action_translationFragment_to_selectLanguageFragment"
+            app:destination="@id/selectLanguageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/selectLanguageFragment"
+        android:name="com.example.translator.view.fragment.select.SelectLanguageFragment"
+        android:label="SelectLanguageFragment"
+        tools:layout="@layout/fragment_select_language" />
 
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.translator.view.fragment
+package com.example.translator.view.fragment.translation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

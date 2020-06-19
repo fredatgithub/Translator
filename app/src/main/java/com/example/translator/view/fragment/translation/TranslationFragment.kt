@@ -1,4 +1,4 @@
-package com.example.translator.view.fragment
+package com.example.translator.view.fragment.translation
 
 import android.os.Bundle
 import android.text.Editable
@@ -42,6 +42,10 @@ class TranslationFragment : Fragment(), TextWatcher {
         updateLanguagesData()
 
         with(viewModel) {
+            isProgressVisible.observe(viewLifecycleOwner) { visible ->
+                progress_bar.visibility = if (visible) VISIBLE else GONE
+            }
+
             error.observe(viewLifecycleOwner) { context?.shortToast(it) }
 
             translationResult.observe(viewLifecycleOwner) {
