@@ -20,7 +20,7 @@ class TranslationViewModel(private val repository: Repository) : ViewModel() {
         error.postValue(throwable.message)
     }
 
-    init {
+    fun getLanguages() {
         viewModelScope.launch(exceptionHandler) {
             repository.getLanguages().apply {
                 val langs = mutableListOf<Language>()

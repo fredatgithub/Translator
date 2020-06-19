@@ -13,6 +13,7 @@ import com.example.translator.R
 import com.example.translator.util.AppPrefs.getDir
 import com.example.translator.util.AppPrefs.getDirTo
 import com.example.translator.util.AppPrefs.isAutoDetect
+import com.example.translator.util.AppPrefs.saveDir
 import com.example.translator.util.observe
 import com.example.translator.util.shortToast
 import kotlinx.android.synthetic.main.fragment_translation.*
@@ -36,9 +37,47 @@ class TranslationFragment : Fragment(), TextWatcher {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        swap.isEnabled = !isAutoDetect(requireContext())
+
+        updateLanguagesData()
 
         with(viewModel) {
             error.observe(viewLifecycleOwner) { context?.shortToast(it) }
+
+            translationResult.observe(viewLifecycleOwner) {
+                it?.text?.joinToString().apply {
+                    result.text = this
+                    translation_holder.visibility = if (this?.isBlank() == true) GONE else VISIBLE
+                }
+            }
+        }
+
+        input.addTextChangedListener(this)
+
+        swap.setOnClickListener {
+            saveDir(
+                requireContext(),
+                getDir(requireContext())[1] ?: "",
+                getDir(requireContext())[0] ?: ""
+            )
+            updateLanguagesData()
+            updateTranslationCard()
+        }
+    }
+
+    override fun afterTextChanged(editable: Editable?) {
+        updateTranslationCard()
+    }
+
+    override fun beforeTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    }
+
+    override fun onTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    }
+
+    private fun updateLanguagesData() {
+        with(viewModel) {
+            getLanguages()
 
             languages.observe(viewLifecycleOwner) {
                 when (isAutoDetect(requireContext())) {
@@ -56,31 +95,12 @@ class TranslationFragment : Fragment(), TextWatcher {
                     }
                 }
 
-               it.find { it.id == getDir(requireContext())[1] }?.lang.apply {
-                   result_lang_choose.text = this
-                   result_lang.text = this
-               }
-            }
-
-            translationResult.observe(viewLifecycleOwner) {
-                it?.text?.joinToString().apply {
-                    result.text = this
-                    translation_holder.visibility = if (this?.isBlank() == true) GONE else VISIBLE
+                it.find { it.id == getDir(requireContext())[1] }?.lang.apply {
+                    result_lang_choose.text = this
+                    result_lang.text = this
                 }
             }
         }
-
-        input.addTextChangedListener(this)
-    }
-
-    override fun afterTextChanged(editable: Editable?) {
-        updateTranslationCard()
-    }
-
-    override fun beforeTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
-    }
-
-    override fun onTextChanged(sequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
     }
 
     private fun updateTranslationCard() {
